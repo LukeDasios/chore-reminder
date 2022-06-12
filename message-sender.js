@@ -10,6 +10,9 @@ const theBoys = ["Luke", "Duncan", "Sam", "Jp"]
 const numbers = ["+16479385063", "+14168261333", "+14168447692", "+14166169331"]
 let iter = 3
 
+let date1 = new Date(Date.UTC(2022, 6, 19, 10, 0))
+let date2 = new Date(Date.UTC(2022, 6, 14, 17, 20))
+
 const daysInMonth = new Map()
 daysInMonth.set(1, 31)
 daysInMonth.set(2, 28)
@@ -25,40 +28,46 @@ daysInMonth.set(11, 30)
 daysInMonth.set(12, 31)
 
 // Sent on Sunday Morning @10am
-client.messages
-  .create({
-    messagingServiceSid: messagingServiceSid,
-    body: garbageWeek
-      ? `Good Evening ${theBoys[iter]}! In case you haven't already done so already, friendly reminder that the Recycling, Compost, and Garbage need to be taken to the curb by tonight. Cheers.`
-      : `Good Evening ${theBoys[iter]}! In case you haven't already done so already, friendly reminder that the Recycling and Compost need to be taken to the curb by tonight. Cheers.`,
-    sendAt: new Date(Date.UTC(2022, 6, 12, 11, 35)),
-    scheduleType: "fixed",
-    statusCallback: "https://abc1234.free.beeceptor.com",
-    to: "+16479385063", //numbers[iter]
-  })
-  .then((message) => {
-    console.log(message)
-    console.log(message.body)
-  })
+const sundayMessages = (date1) => {
+  client.messages
+    .create({
+      messagingServiceSid: messagingServiceSid,
+      body: garbageWeek
+        ? `Good Evening ${theBoys[iter]}! In case you haven't already done so already, friendly reminder that the Recycling, Compost, and Garbage need to be taken to the curb by tonight. Cheers.`
+        : `Good Evening ${theBoys[iter]}! In case you haven't already done so already, friendly reminder that the Recycling and Compost need to be taken to the curb by tonight. Cheers.`,
+      sendAt: date,
+      scheduleType: "fixed",
+      statusCallback: null,
+      to: "+16479385063", //numbers[iter]
+    })
+    .then((message) => {
+      date1 = calculateNextDate()
+      sundayMessages(date1)
+    })
+}
 
 // Sent on Tuesday Night @8pm
-// client.messages
-//   .create({
-//     messagingServiceSid: messagingServiceSid,
-//     body: "This is a scheduled message",
-//     sendAt: calculateNextDate(),
-//     scheduleType: "fixed",
-//     statusCallback: "https://abc1234.free.beeceptor.com",
-//     to: "+16479385063", //numbers[iter]
-//   })
-//   .then((message) => {
-//     if (iter + 1 === theBoys.length) {
-//       iter = 0
-//     } else {
-//       iter++
-//     }
-//     garbageWeek = !garbageWeek
-//   })
+const tuesdayMessage = (date2) => {
+  client.messages
+    .create({
+      messagingServiceSid: messagingServiceSid,
+      body: "This is a scheduled message",
+      sendAt: date2,
+      scheduleType: "fixed",
+      statusCallback: "https://abc1234.free.beeceptor.com",
+      to: "+16479385063", //numbers[iter]
+    })
+    .then((message) => {
+      if (iter + 1 === theBoys.length) {
+        iter = 0
+      } else {
+        iter++
+      }
+      garbageWeek = !garbageWeek
+      date2 = calculateNextDate()
+      tuesdayMessage(date2)
+    })
+}
 
 function calculateNextDate() {
   let date = new Date()
