@@ -11,7 +11,8 @@
   "dependencies": {
     "axios": "^0.27.2",
     "dotenv": "^16.0.1",
-    "express": "^4.18.1"
+    "express": "^4.18.1",
+    "twilio": "^3.77.2"
   },
   "devDependencies": {
     "prettier": "^2.6.2",
