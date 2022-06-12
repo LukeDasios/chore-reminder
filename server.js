@@ -1,14 +1,13 @@
-const twilio = require("twilio")
+require("dotenv").config()
 
-const accountSid = process.env.TWILIO_ACCOUNT_SID // Your Account SID from www.twilio.com/console
-const authToken = process.env.TWILIO_AUTH_TOKEN // Your Auth Token from www.twilio.com/console
-
-const client = new twilio(accountSid, authToken)
+const accountSid = process.env.TWILIO_ACCOUNT_SID
+const authToken = process.env.TWILIO_AUTH_TOKEN
+const client = require("twilio")(accountSid, authToken)
 
 client.messages
   .create({
-    body: "Hello from Node!",
-    to: process.env.MY_PHONE_NUMBER, // Text this number
-    from: process.env.TWILIO_PHONE_NUMBER, // From a valid Twilio number
+    body: "Hi there!",
+    from: process.env.TWILIO_PHONE_NUMBER,
+    to: process.env.MY_PHONE_NUMBER,
   })
   .then((message) => console.log(message.sid))
