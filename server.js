@@ -12,7 +12,7 @@ let iter = 3
 // Sent on Sunday Morning @10am
 client.messages
   .create({
-    body: `Hi ${theBoys[iter]}! Friendly reminder that you're on garbage duty this week.`,
+    body: `Good Morning ${theBoys[iter]}! Friendly reminder that you're on garbage duty this week.`,
     from: process.env.TWILIO_PHONE_NUMBER,
     to: numbers[iter],
   })
@@ -24,8 +24,8 @@ client.messages
 client.messages
   .create({
     body: garbageWeek
-      ? `Hi ${theBoys[iter]}! Friendly reminder that the Recycling, Compost, and Garbage need to be taken to the curb by tonight. Cheers.`
-      : `Hi ${theBoys[iter]}! In case you haven't already done so already, friendly reminder that the Recycling and Compost need to be taken to the curb by tonight. Cheers.`,
+      ? `Good Afternoon ${theBoys[iter]}! In case you haven't already done so already, friendly reminder that the Recycling, Compost, and Garbage need to be taken to the curb by tonight. Cheers.`
+      : `Good Afternoon ${theBoys[iter]}! In case you haven't already done so already, friendly reminder that the Recycling and Compost need to be taken to the curb by tonight. Cheers.`,
     from: process.env.TWILIO_PHONE_NUMBER,
     to: numbers[iter],
   })
