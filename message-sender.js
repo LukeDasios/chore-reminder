@@ -24,25 +24,6 @@ daysInMonth.set(10, 31)
 daysInMonth.set(11, 30)
 daysInMonth.set(12, 31)
 
-// Sent on Tuesday Night @8pm
-client.messages
-  .create({
-    body: garbageWeek
-      ? `Good Evening ${theBoys[iter]}! In case you haven't already done so already, friendly reminder that the Recycling, Compost, and Garbage need to be taken to the curb by tonight. Cheers.`
-      : `Good Evening ${theBoys[iter]}! In case you haven't already done so already, friendly reminder that the Recycling and Compost need to be taken to the curb by tonight. Cheers.`,
-    from: process.env.TWILIO_PHONE_NUMBER,
-    to: numbers[iter],
-  })
-  .then((message) => {
-    console.log(message.sid)
-    if (iter + 1 === theBoys.length) {
-      iter = 0
-    } else {
-      iter++
-    }
-    garbageWeek = !garbageWeek
-  })
-
 // Sent on Sunday Morning @10am
 client.messages
   .create({
@@ -50,34 +31,34 @@ client.messages
     body: garbageWeek
       ? `Good Evening ${theBoys[iter]}! In case you haven't already done so already, friendly reminder that the Recycling, Compost, and Garbage need to be taken to the curb by tonight. Cheers.`
       : `Good Evening ${theBoys[iter]}! In case you haven't already done so already, friendly reminder that the Recycling and Compost need to be taken to the curb by tonight. Cheers.`,
-    sendAt: calculateNextDate(),
+    sendAt: new Date(Date.UTC(2022, 6, 12, 11, 35)),
     scheduleType: "fixed",
-    statusCallback: null,
+    statusCallback: "https://abc1234.free.beeceptor.com",
     to: "+16479385063", //numbers[iter]
   })
   .then((message) => {
-    console.log(message.sid)
+    console.log(message)
+    console.log(message.body)
   })
 
 // Sent on Tuesday Night @8pm
-client.messages
-  .create({
-    messagingServiceSid: messagingServiceSid,
-    body: "This is a scheduled message",
-    sendAt: calculateNextDate(),
-    scheduleType: "fixed",
-    statusCallback: null,
-    to: "+16479385063",
-  })
-  .then((message) => {
-    console.log(message.sid)
-    if (iter + 1 === theBoys.length) {
-      iter = 0
-    } else {
-      iter++
-    }
-    garbageWeek = !garbageWeek
-  })
+// client.messages
+//   .create({
+//     messagingServiceSid: messagingServiceSid,
+//     body: "This is a scheduled message",
+//     sendAt: calculateNextDate(),
+//     scheduleType: "fixed",
+//     statusCallback: "https://abc1234.free.beeceptor.com",
+//     to: "+16479385063", //numbers[iter]
+//   })
+//   .then((message) => {
+//     if (iter + 1 === theBoys.length) {
+//       iter = 0
+//     } else {
+//       iter++
+//     }
+//     garbageWeek = !garbageWeek
+//   })
 
 function calculateNextDate() {
   let date = new Date()
@@ -97,8 +78,6 @@ function calculateNextDate() {
 
   return new Date(Date.UTC(year, month, day, hour))
 }
-
-console.log(calculateNextDate())
 
 // *** EXAMPLE JSON RESPONSE ***
 // {
