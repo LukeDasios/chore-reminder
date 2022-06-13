@@ -3,6 +3,10 @@ const accountSid = process.env.ACCOUNT_SID
 const authToken = process.env.AUTH_TOKEN
 const TWILIO_PHONE_NUMBER = process.env.PHONE_NUMBER
 
+console.log("*******************")
+console.log(accountSid, authToken, TWILIO_PHONE_NUMBER)
+console.log("*******************")
+
 const client = require("twilio")(accountSid, authToken)
 
 const express = require("express")
