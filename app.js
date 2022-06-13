@@ -13,9 +13,13 @@ app.listen(port, () => {
 })
 
 app.get("/", (req, res) => {
-  console.log("Working???")
   sendFirstMessage()
-  res.send("Hello World!")
+  res.send("Plz work!")
+})
+
+app.get("/home", (req, res) => {
+  sendFirstMessage()
+  res.send("This is the home page!")
 })
 
 const sendFirstMessage = () => {
@@ -26,7 +30,6 @@ const sendFirstMessage = () => {
       to: "+16479385063",
     })
     .then((message) => {
-      console.log(message.body)
       setTimeout(sendSecondMessage, 5000)
     })
 }
@@ -39,7 +42,6 @@ const sendSecondMessage = () => {
       to: "+16479385063",
     })
     .then((message) => {
-      console.log(message.body)
       setTimeout(sendFirstMessage, 5000)
     })
 }
