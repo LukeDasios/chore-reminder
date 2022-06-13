@@ -13,6 +13,7 @@ app.listen(port, () => {
 })
 
 app.get("/", (req, res) => {
+  console.log("Working???")
   sendFirstMessage()
   res.send("Hello World!")
 })
