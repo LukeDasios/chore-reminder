@@ -1,6 +1,7 @@
-const accountSid = "ACc2ed636bb7d6baade93ff415e3c221b1"
-const authToken = "c78229c27d15242385b5a802a79444f4"
-const TWILIO_PHONE_NUMBER = "+19033213550"
+require("dotenv").config()
+const accountSid = process.env.ACCOUNT_SID
+const authToken = process.env.AUTH_TOKEN
+const TWILIO_PHONE_NUMBER = process.env.PHONE_NUMBER
 
 const client = require("twilio")(accountSid, authToken)
 
@@ -10,16 +11,11 @@ const port = process.env.PORT || 3000
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)
+  sendFirstMessage()
 })
 
 app.get("/", (req, res) => {
-  sendFirstMessage()
   res.send("Plz work!")
-})
-
-app.get("/home", (req, res) => {
-  sendFirstMessage()
-  res.send("This is the home page!")
 })
 
 const sendFirstMessage = () => {
@@ -30,6 +26,7 @@ const sendFirstMessage = () => {
       to: "+16479385063",
     })
     .then((message) => {
+      console.log(message)
       setTimeout(sendSecondMessage, 5000)
     })
 }
@@ -42,6 +39,7 @@ const sendSecondMessage = () => {
       to: "+16479385063",
     })
     .then((message) => {
+      console.log(message)
       setTimeout(sendFirstMessage, 5000)
     })
 }
