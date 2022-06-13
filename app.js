@@ -26,7 +26,7 @@ const sendFirstMessage = () => {
       to: "+16479385063",
     })
     .then((message) => {
-      console.log(message)
+      console.log(message.body)
       setTimeout(sendSecondMessage, 5000)
     })
 }
@@ -39,7 +39,7 @@ const sendSecondMessage = () => {
       to: "+16479385063",
     })
     .then((message) => {
-      console.log(message)
+      console.log(message.body)
       setTimeout(sendFirstMessage, 5000)
     })
 }
