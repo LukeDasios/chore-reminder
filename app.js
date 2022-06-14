@@ -20,7 +20,7 @@ app.listen(port, () => {
     from: TWILIO_PHONE_NUMBER,
     to: "+16479385063",
   })
-  setTimeout(tuesdayMessage, 85980000)
+  setTimeout(tuesdayMessage, 85800000)
 })
 
 app.get("/", (req, res) => {
